@@ -1,4 +1,4 @@
-package com.example.dagger2exmp.presentation.di
+package com.example.dagger2exmp.presentation.di.core
 
 import com.example.dagger2exmp.data.api.AppService
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.example.dagger2exmp.presentation.di
+package com.example.dagger2exmp.presentation.di.core
 
 import android.content.Context
 import androidx.room.Room
