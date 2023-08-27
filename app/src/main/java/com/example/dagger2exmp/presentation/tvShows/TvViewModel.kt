@@ -8,7 +8,7 @@ class TvViewModel(
     private val getTvUseCase: GetTvUseCase,
     private val updateTvUseCase: GetTvUseCase
 ) : ViewModel() {
-    fun getMovies() = liveData {
+    fun getTvShows() = liveData {
         val tvShowList = getTvUseCase.execute()
         emit(tvShowList)
     }
