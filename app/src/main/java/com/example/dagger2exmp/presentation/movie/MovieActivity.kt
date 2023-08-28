@@ -1,12 +1,10 @@
 package com.example.dagger2exmp.presentation.movie
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dagger2exmp.R
@@ -18,7 +16,7 @@ class MovieActivity : AppCompatActivity() {
     @Inject
     lateinit var factory: MovieViewModelFactory
 
-    private lateinit var moviewViewModel: MovieViewModel
+    private lateinit var movieViewModel: MovieViewModel
 
     private lateinit var binding: ActivityMovieBinding
 
@@ -28,10 +26,11 @@ class MovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie)
 
+
         (application as Injector).createMovieSubComponent()
             .inject(this)
 
-        moviewViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
+        movieViewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
         initView()
     }
@@ -40,16 +39,15 @@ class MovieActivity : AppCompatActivity() {
     private fun initView() {
         adapter = MovieAdapter()
 
-            binding.recyclerView.layoutManager = LinearLayoutManager(this@MovieActivity)
-            binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this@MovieActivity)
+        binding.recyclerView.adapter = adapter
 
         displayPopularMovie()
     }
 
     private fun displayPopularMovie() {
         binding.progressBar.visibility = View.VISIBLE
-        moviewViewModel.getMovies().observe(this, Observer {
-            Log.d("TAG", "VALUEEEEE->>>> ${it?.size}")
+        movieViewModel.getMovies().observe(this) {
             it?.let { list ->
                 binding.progressBar.visibility = View.GONE
                 adapter.setList(list)
@@ -57,6 +55,6 @@ class MovieActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "No Data found", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dagger2exmp.R
@@ -46,7 +45,7 @@ class TvShowActivity : AppCompatActivity() {
 
     private fun displayPopularTvShows() {
         binding.progressBar.visibility = View.VISIBLE
-        viewModel.getTvShows().observe(this, Observer {
+        viewModel.getTvShows().observe(this) {
             it?.let { list ->
                 binding.progressBar.visibility = View.GONE
                 adapter.setList(list)
@@ -54,6 +53,6 @@ class TvShowActivity : AppCompatActivity() {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "No Data found", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
     }
 }
