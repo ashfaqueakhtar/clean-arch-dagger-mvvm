@@ -1,5 +1,6 @@
 package com.example.dagger2exmp.data.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -17,4 +18,7 @@ interface MovieDao {
 
     @Query(value = "SELECT * FROM popular_movies")
     fun getAllMovies():List<Movie>
+
+    @Query(value = "SELECT * FROM popular_movies")
+    fun getAllMovies2():LiveData<List<Movie>>
 }
